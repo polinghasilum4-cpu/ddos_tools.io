@@ -1,9 +1,9 @@
-// Configuration data for Darkness DDoS Toolkit
+// Configuration for DARKNET DDoS Framework
 const attackConfig = {
-    version: "3.0",
-    author: "Darkness Security Team",
-    description: "Advanced Web-Based DDoS Attack Platform",
-    license: "For authorized penetration testing only",
+    version: "4.0",
+    author: "DARKNET Security",
+    description: "Advanced DDoS Attack Framework",
+    license: "For authorized security testing only",
     
     attack_methods: {
         udp: {
@@ -38,8 +38,7 @@ const attackConfig = {
                 keep_alive: true,
                 user_agents: [
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-                    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
                 ],
                 threads: 50
             },
@@ -83,60 +82,17 @@ const attackConfig = {
         }
     },
 
-    payload_templates: {
-        http_get: {
-            method: "GET",
-            headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                "Accept-Language": "en-US,en;q=0.5",
-                "Accept-Encoding": "gzip, deflate",
-                "Connection": "keep-alive",
-                "Cache-Control": "no-cache"
-            },
-            data: ""
-        },
-        http_post: {
-            method: "POST", 
-            headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Accept": "*/*",
-                "Connection": "keep-alive"
-            },
-            data: "username=test&password=test&action=login"
-        },
-        api_request: {
-            method: "POST",
-            headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Connection": "keep-alive"
-            },
-            data: '{"query":"test","page":1,"limit":100}'
-        }
-    },
-
     security: {
         auto_stop: true,
         max_duration: 3600,
         max_threads: 1000,
         rate_limiting: false,
-        user_agent_rotation: true,
-        ip_rotation: false
-    },
-
-    monitoring: {
-        packet_tracking: true,
-        performance_metrics: true,
-        target_health_check: true,
-        auto_adapt: false
+        user_agent_rotation: true
     },
 
     legal: {
-        warning: "This tool is for authorized penetration testing and educational purposes only.",
-        requirement: "Always obtain proper authorization before testing.",
-        liability: "Users are solely responsible for their actions."
+        warning: "STRICTLY FOR AUTHORIZED PENETRATION TESTING ONLY",
+        requirement: "Always obtain proper authorization before testing",
+        liability: "Users are solely responsible for their actions"
     }
 };
