@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darkness DDoS Toolkit v3.0</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title glowing">DARKNESS DDoS v3.0</h1>
+            <p class="subtitle">Advanced Web-Based DDoS Attack Platform</p>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-value" id="packetsSent">0</div>
+                <div class="stat-label">PACKETS SENT</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="attackPower">0%</div>
+                <div class="stat-label">ATTACK POWER</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="activeThreads">0</div>
+                <div class="stat-label">ACTIVE THREADS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="targetStatus">IDLE</div>
+                <div class="stat-label">TARGET STATUS</div>
+            </div>
+        </div>
+
+        <div class="attack-panel">
+            <h2 class="panel-title">QUICK ATTACK LAUNCHER</h2>
+            <div class="attack-grid">
+                <div class="attack-card">
+                    <div class="attack-icon">⚡</div>
+                    <h3>UDP FLOOD</h3>
+                    <p>High-speed UDP packet flooding</p>
+                    <button class="btn" onclick="startAttack('udp')">LAUNCH UDP FLOOD</button>
+                </div>
+                <div class="attack-card">
+                    <div class="attack-icon">🌐</div>
+                    <h3>HTTP FLOOD</h3>
+                    <p>Application layer HTTP attacks</p>
+                    <button class="btn" onclick="startAttack('http')">LAUNCH HTTP FLOOD</button>
+                </div>
+                <div class="attack-card">
+                    <div class="attack-icon">🔧</div>
+                    <h3>SLOWLORIS</h3>
+                    <p>Slow HTTP headers attack</p>
+                    <button class="btn" onclick="startAttack('slowloris')">LAUNCH SLOWLORIS</button>
+                </div>
+                <div class="attack-card">
+                    <div class="attack-icon">💥</div>
+                    <h3>MULTI-VECTOR</h3>
+                    <p>Combined attack methods</p>
+                    <button class="btn" onclick="startAttack('multi')">LAUNCH MULTI-VECTOR</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="attack-panel">
+            <h2 class="panel-title">ADVANCED ATTACK CONFIGURATION</h2>
+            
+            <div class="form-group">
+                <label for="targetUrl">TARGET URL / IP:</label>
+                <input type="text" id="targetUrl" placeholder="https://target.com or 192.168.1.1" value="">
+            </div>
+
+            <div class="form-group">
+                <label for="targetPort">TARGET PORT:</label>
+                <input type="number" id="targetPort" value="80" min="1" max="65535">
+            </div>
+
+            <div class="form-group">
+                <label for="attackType">ATTACK TYPE:</label>
+                <select id="attackType">
+                    <option value="udp">UDP FLOOD</option>
+                    <option value="tcp">TCP SYN FLOOD</option>
+                    <option value="http">HTTP FLOOD</option>
+                    <option value="slowloris">SLOWLORIS</option>
+                    <option value="dns">DNS AMPLIFICATION</option>
+                    <option value="multi">MULTI-VECTOR</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="threads">NUMBER OF THREADS:</label>
+                <input type="number" id="threads" value="50" min="1" max="1000">
+            </div>
+
+            <div class="form-group">
+                <label for="duration">DURATION (seconds):</label>
+                <input type="number" id="duration" value="60" min="1" max="3600">
+            </div>
+
+            <div class="form-group">
+                <label for="packetSize">PACKET SIZE (bytes):</label>
+                <input type="number" id="packetSize" value="1024" min="1" max="65535">
+            </div>
+
+            <div class="form-group">
+                <label for="customPayload">CUSTOM PAYLOAD (JSON):</label>
+                <textarea id="customPayload" placeholder='{"method": "GET", "headers": {}, "data": ""}'></textarea>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="startCustomAttack()">🚀 LAUNCH CUSTOM ATTACK</button>
+                <button class="btn btn-stop" onclick="stopAllAttacks()">🛑 STOP ALL ATTACKS</button>
+                <button class="btn btn-export" onclick="exportConfig()">💾 EXPORT CONFIG</button>
+                <button class="btn btn-import" onclick="importConfig()">📁 IMPORT CONFIG</button>
+            </div>
+        </div>
+
+        <div class="config-section">
+            <h2 class="panel-title">ATTACK PROGRESS</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="attackProgress"></div>
+            </div>
+            <div id="progressText" style="text-align: center; margin: 10px 0; color: #00ff00;">Ready to attack...</div>
+        </div>
+
+        <div class="attack-panel">
+            <h2 class="panel-title">ATTACK LOGS</h2>
+            <div class="log-container" id="attackLogs">
+                <div class="log-entry log-info">[SYSTEM] Darkness DDoS Toolkit initialized</div>
+                <div class="log-entry log-info">[SYSTEM] Ready to launch attacks</div>
+            </div>
+            <div style="text-align: center; margin-top: 10px;">
+                <button class="btn btn-clear" onclick="clearLogs()">🗑️ CLEAR LOGS</button>
+                <button class="btn btn-save" onclick="saveLogs()">💾 SAVE LOGS</button>
+            </div>
+        </div>
+
+        <div class="attack-panel">
+            <h2 class="panel-title">CONFIGURATION MANAGER</h2>
+            <div class="form-group">
+                <label for="configName">CONFIGURATION NAME:</label>
+                <input type="text" id="configName" placeholder="My Attack Configuration">
+            </div>
+            <div style="text-align: center;">
+                <button class="btn" onclick="saveConfiguration()">💾 SAVE CONFIGURATION</button>
+                <button class="btn" onclick="loadConfiguration()">📁 LOAD CONFIGURATION</button>
+                <button class="btn btn-delete" onclick="deleteConfiguration()">🗑️ DELETE CONFIGURATION</button>
+            </div>
+            <div id="configList" style="margin-top: 15px; color: #00ff00;"></div>
+        </div>
+    </div>
+
+    <input type="file" id="importFile" style="display: none;" accept=".json" onchange="handleFileImport(this.files[0])">
+    
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
